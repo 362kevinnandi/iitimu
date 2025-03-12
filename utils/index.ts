@@ -42,7 +42,7 @@ export const PRICING = [
   },
   {
     plan: "Pro",
-    price: "5.99",
+    price: "2.10",
     icon: Users,
     features: [
       "Up to 10 Workspaces",
