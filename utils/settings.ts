@@ -1,0 +1,15 @@
+export const MAX_FREE_SETTINGS = {
+  WORKSPACES: 1,
+  PROJECTS: 10,
+  TASKS: 10,
+  MEMBERS: 2,
+  FILES: 0,
+};
+
+export const MAX_PRO_SETTINGS = {
+  WORKSPACES: 10,
+  PROJECTS: 500,
+  TASKS: 5000,
+  MEMBERS: 20,
+  FILES: 10,
+};

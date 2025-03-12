@@ -1,0 +1,285 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AccessLevel {
+  OWNER
+  MEMBER
+  VIEWER
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  COMPLETED
+  BLOCKED
+  BACKLOG
+  IN_REVIEW
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum DocumentType {
+  PROJECT
+  TASK
+}
+
+enum FileType {
+  IMAGE
+  PDF
+}
+
+enum SubscriptionPlan {
+  FREE
+  PRO
+  ENTERPRISE
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+  PAST_DUE
+}
+
+model User {
+  id              String   @id @default(uuid())  
+  name            String  
+  email           String   @unique  
+  about           String?
+  industryType    String  
+  role            String
+  country         String
+  workspaces      WorkspaceMember[]  
+  image           String?
+  tasks           Task[]  
+  activities      Activity[]
+  comments        Comment[]
+  notifications   Notification[]
+  timeLogs        TimeLog[]
+  subscription    Subscription?
+
+  onboardingCompleted Boolean @default(false)
+  lastWorkspaceId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Workspace {
+  id         String   @id @default(uuid())  
+  name       String  
+  description String?  
+  ownerId    String  
+  members    WorkspaceMember[]  
+  projects   Project[]  
+  inviteCode  String  @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model WorkspaceMember {
+  id            String @id @default(uuid())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+  workspace     Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId   String
+  accessLevel   AccessLevel @default(MEMBER)
+  projectAccess ProjectAccess[]
+
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  @@unique([userId, workspaceId]) // Ensure a user can join a workspace only once
+}
+
+model Project {
+  id          String      @id @default(cuid())
+  name        String
+  description String?
+  workspaceId String
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  tasks       Task[]
+  activities  Activity[]
+  projectAccess ProjectAccess[]
+  comments    Comment[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  projectDocuments ProjectDocument[]
+  attachments   File[]
+
+  @@index([workspaceId])
+}
+
+model ProjectAccess{
+  id String @id @default(uuid())
+  workspaceMember WorkspaceMember @relation(fields: [workspaceMemberId], references: [id], onDelete:  Cascade)
+  workspaceMemberId String
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+  hasAccess Boolean @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([workspaceMemberId, projectId])
+}
+
+model Task {
+  id            String    @id @default(cuid())
+  title         String
+  description   String?
+  status        TaskStatus @default(TODO)
+  priority      TaskPriority @default(MEDIUM)
+  position      Int
+  startDate     DateTime
+  dueDate       DateTime
+  projectId     String
+  project       Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assignedTo    User?    @relation(fields: [assignedToId], references: [id], onDelete: SetDefault)
+  assignedToId  String?
+
+  attachments   File[]
+  taskDocuments TaskDocument[]
+  timeLogs      TimeLog[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([projectId])
+  @@index([assignedToId])
+}
+
+model Activity {
+  id          String    @id @default(cuid())
+  type        String
+  description String
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+
+  @@index([projectId])
+  @@index([userId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  projectId String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  project   Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([userId])
+}
+
+enum NotificationType {
+  COMMENT
+  TIME_LOG
+  MENTION
+  TASK_ASSIGNMENT
+  WORKSPACE_INVITE
+  SYSTEM_MESSAGE
+}
+
+model Notification {
+  id          String   @id @default(uuid())
+  message     String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  read        Boolean  @default(false)  
+  type        NotificationType @default(SYSTEM_MESSAGE)
+  link        String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model ProjectDocument {
+  id        String    @id @default(uuid())
+  projectId String    @unique
+  content   String    
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id])
+
+   updatedBy String?  
+
+  // fromLinks DocumentLink[] @relation("FromProjectDocument")
+  // toLinks   DocumentLink[] @relation("ToProjectDocument")
+}
+
+model TaskDocument {
+  id        String    @id @default(uuid())
+  taskId    String    @unique
+  content   String    
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  task Task @relation(fields: [taskId], references: [id])
+   updatedBy String?
+   
+}
+
+model File {
+  id        String   @id @default(uuid())  
+  name      String  
+  url       String  
+  taskId    String?  
+  projectId String?
+  type      FileType
+  task      Task?    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model TimeLog {
+  id        String   @id @default(uuid())
+  userId    String
+  taskId    String
+  startTime DateTime
+  endTime   DateTime?
+  duration  Int?  
+
+  task  Task  @relation(fields: [taskId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+}
+
+
+model Subscription {
+  id              String            @id @default(uuid())
+  userId          String            @unique
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan            SubscriptionPlan  @default(FREE)
+  status          SubscriptionStatus @default(ACTIVE)
+  lemonsqueezyId  String?          // Lemon Squeezy subscription ID
+  orderId         String?          // Lemon Squeezy order ID
+  customerId      String?          // Lemon Squeezy customer ID
+  currentPeriodEnd DateTime?
+  frequency       String       @default("monthly")
+  cancelAtPeriodEnd Boolean       @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@index([userId])
+}
+
