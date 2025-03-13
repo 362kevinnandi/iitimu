@@ -1,4 +1,4 @@
-import { Cloud } from "lucide-react";
+import { Wrench } from "lucide-react";
 import Link from "next/link";
 
 export const FooterSection = () => {
@@ -8,10 +8,10 @@ export const FooterSection = () => {
         <div className="flex w-full items-center justify-normal gap-8">
           <div className="">
             <div className="flex items-center mb-4">
-              <Cloud className="h-8 w-8 text-indigo-400" />
-              <span className="ml-2 text-xl font-bold">MT -</span>
+              <Wrench className="h-8 w-8 text-indigo-400" />
+              <span className="ml-2 text-xl font-bold">Daily</span>
               <span className="text-backgroundPrimary text-xl font-bold">
-                iitimu
+                TM
               </span>
             </div>
             <p className="text-gray-400 max-w-sm">
@@ -48,7 +48,7 @@ export const FooterSection = () => {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400">© 2024 MT-iitimu. All rights reserved.</p>
+          <p className="text-gray-400">© 2024 DailyTM. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a
               href="#"

@@ -1,15 +1,13 @@
 {
   "name": "MT-iitimu",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "email": "email dev --dir emails",
-    "postinstall": "npx prisma generate",
-    "build": "npx prisma generate && next build"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^17.0.0",

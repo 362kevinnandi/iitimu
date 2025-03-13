@@ -42,7 +42,6 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -84,7 +83,6 @@ body {
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
   }
@@ -94,7 +92,6 @@ body {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
@@ -107,7 +104,6 @@ body {
 .feature-card {
   @apply relative p-8 rounded-xl backdrop-blur-sm bg-white/50 dark:bg-slate-900/50 hover:bg-white/80 dark:hover:bg-slate-900/80 transition-all duration-300 border border-slate-200/50 hover:border-slate-300/50 shadow-lg hover:shadow-xl cursor-pointer;
 }
-
 .glass-morphism {
   @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)];
 }
@@ -121,10 +117,8 @@ body {
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
@@ -137,8 +131,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
-  /*f1f1f1; */
+  background: var(--background); /*f1f1f1; */
   border-radius: 4px;
 }
 
@@ -160,30 +153,25 @@ body {
   /* color: var(--foreground); */
   /* @apply !text-foreground; */
 }
-
 .rbc-today {
   @apply !bg-transparent;
 }
-
 .rbc-off-range-bg {
   @apply !bg-transparent;
 }
-
 .rbc-header {
   @apply !border;
   @apply !border-border;
   @apply !py-2;
   @apply !rounded-t-md;
 }
-
 .rbc-month-view {
   @apply !rounded-lg;
   @apply !border;
   @apply !border-border;
 }
-
-.rbc-day-bg+.rbc-day-bg,
-.rbc-month-row+.rbc-month-row {
+.rbc-day-bg + .rbc-day-bg,
+.rbc-month-row + .rbc-month-row {
   @apply !border;
   @apply !border-border;
 }
@@ -193,7 +181,6 @@ body {
     stroke-dasharray: 4000;
     stroke-dashoffset: 4000;
   }
-
   100% {
     stroke-dasharray: 4000;
     stroke-dashoffset: 0;
@@ -214,7 +201,6 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
-
   body {
     @apply bg-background text-foreground;
   }

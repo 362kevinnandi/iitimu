@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MT-iitimu",
+  title: "DailyTM",
   description: "Create and manage all your tasks in one place",
 };
 

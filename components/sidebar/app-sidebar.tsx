@@ -53,7 +53,7 @@ export const AppSidebar = ({
       <SidebarHeader className="bg-background">
         <div className="flex items-center">
           <Avatar>
-            <AvatarImage src="/cloud.svg" />
+            <AvatarImage src="/wrench.svg" />
           </Avatar>
           <SidebarGroupLabel>
             <span className="ml-2 text-xl font-bold">You</span>

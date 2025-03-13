@@ -4,7 +4,7 @@ import {
   RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { Cloud } from "lucide-react";
+import { Wrench } from "lucide-react";
 import Link from "next/link";
 
 import { ThemeToggle } from "../theme-toggle";
@@ -19,9 +19,9 @@ export const HomeNavbar = async () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Cloud className="h-8 w-8 text-backgroundPrimary" />
-            <span className="ml-2 text-xl font-bold">MT -</span>
-            <span className="text-backgroundPrimary text-xl font-bold">iitimu</span>
+            <Wrench className="h-8 w-8 text-backgroundPrimary" />
+            <span className="ml-2 text-xl font-bold">Daily</span>
+            <span className="text-backgroundPrimary text-xl font-bold">TM</span>
           </div>
 
           <div className="hidden md:flex items-center space-x-8 text-foreground">

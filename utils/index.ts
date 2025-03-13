@@ -42,7 +42,7 @@ export const PRICING = [
   },
   {
     plan: "Pro",
-    price: "2.10",
+    price: "5.99",
     icon: Users,
     features: [
       "Up to 10 Workspaces",
@@ -74,7 +74,7 @@ export const testimonies = [
     id: "01",
     name: "Rcokson Ohene Asante",
     review:
-      "TM-iitimu has completely changed how our team collaborates. It's intuitive and has made tracking projects so much easier",
+      "DailyTM has completely changed how our team collaborates. It's intuitive and has made tracking projects so much easier",
     rating: 5,
     role: "CEO at S-REC",
   },
@@ -90,7 +90,7 @@ export const testimonies = [
     id: "03",
     name: "Huseini Kamara",
     review:
-      "TM-iitimu has been the go-to tool for organizing my projects and tasks. I love how it allows me to stay focused and achieve more with my personal command center.",
+      "DailyTM has been the go-to tool for organizing my projects and tasks. I love how it allows me to stay focused and achieve more with my personal command center.",
     rating: 4,
     role: "Operations Manager, S-REC",
   },
