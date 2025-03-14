@@ -72,7 +72,7 @@ export const OnboardingForm = () => {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <Card className="w-full max-w-md bg-background">
         <CardHeader>
-          <CardTitle>Welcome to DailyTM</CardTitle>
+          <CardTitle>Welcome to MT-iitimu</CardTitle>
           <CardDescription>
             Please provide some information to get started.
           </CardDescription>

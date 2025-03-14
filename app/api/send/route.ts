@@ -11,8 +11,8 @@ export async function POST(req: Request) {
       await req.json();
 
     const { data, error } = await resend.emails.send({
-      from: "DailyTM <onboarding@resend.dev>",
-      to: ["codewavewithasante@gmail.com"],
+      from: "MT-iitimu <onboarding@resend.dev>",
+      to: ["362kevin@gmail.com"],
       subject: subject,
       react: DailyTmEmailTemplate({ name, message, buttonText, link }),
     });

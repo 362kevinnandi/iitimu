@@ -35,7 +35,7 @@ export const createUser = async (data: z.infer<typeof userSchema>) => {
         create: {
           type: "SYSTEM_MESSAGE",
           message:
-            "Welcome to DailyTM! We’re thrilled to have you join our community. Your Journey to Productivity Starts Here. Thank you for signing up for DailyTM",
+            "Welcome to MT-iitimu! We’re thrilled to have you join our community. Your Journey to Productivity Starts Here. Thank you for signing up for MT-iitimu",
         },
       },
     },
@@ -55,8 +55,8 @@ export const createUser = async (data: z.infer<typeof userSchema>) => {
         name: userData.name,
         email: userData.email,
         message:
-          "Welcome to DailyTM! We’re thrilled to have you join our community. Your Journey to Productivity Starts Here. Thank you for signing up for DailyTM",
-        subject: "Welcome to DailyTM",
+          "Welcome to MT-iitimu! We’re thrilled to have you join our community. Your Journey to Productivity Starts Here. Thank you for signing up for MT-iitimu",
+        subject: "Welcome to MT-iitimu",
         buttonText: "Get Started",
         link: process.env.NEXT_PUBLIC_APP_URL!,
       }),
