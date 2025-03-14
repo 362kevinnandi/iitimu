@@ -8,7 +8,7 @@ export const Testimonial = () => {
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold">What our users say</h2>
           <p className="mt-4 text-muted-foreground">
-            See how DailyTM has transformed the way teams work. Hear directly
+            See how TM-iitimu has transformed the way teams work. Hear directly
             from users who've improved their productivity and project management
           </p>
         </div>
