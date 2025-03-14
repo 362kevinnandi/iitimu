@@ -30,11 +30,13 @@ export async function POST(request: Request) {
     const { meta, data } = event;
     const { event_name: eventName, custom_data } = meta;
 
+    console.log("Webhook received:", { eventName, data, custom_data });
+
     if (!eventName.startsWith("subscription_") || !data?.id) {
-      return NextResponse.json({ received: true }); // Ignore non-subscription or invalid events
+      return NextResponse.json({ received: true });
     }
 
-    // Extract userId from custom_data or fallback to email lookup
+    // Extract userId from custom_data or fallback to email
     let userId = custom_data?.user_id;
     if (!userId && data.attributes.user_email) {
       const user = await db.user.findUnique({
@@ -61,14 +63,16 @@ export async function POST(request: Request) {
       orderId: data.attributes.order_id?.toString(),
       customerId: data.attributes.customer_id?.toString(),
       cancelAtPeriodEnd: !!data.attributes.cancelled,
-      frequency: "monthly", // Adjust if Lemon Squeezy provides this
+      frequency: "monthly",
     };
+
+    console.log("Subscription data to sync:", subscriptionData);
 
     switch (eventName) {
       case "subscription_created":
       case "subscription_updated":
         await db.subscription.upsert({
-          where: { lemonsqueezyId: subscriptionData.lemonsqueezyId },
+          where: { userId: subscriptionData.userId }, // Use userId since it’s unique
           create: {
             ...subscriptionData,
             createdAt: new Date(),
@@ -84,7 +88,7 @@ export async function POST(request: Request) {
 
       case "subscription_cancelled":
         await db.subscription.update({
-          where: { lemonsqueezyId: subscriptionData.lemonsqueezyId },
+          where: { userId: subscriptionData.userId },
           data: {
             status: "CANCELLED",
             cancelAtPeriodEnd: true,

@@ -10,6 +10,7 @@ export const createSubscription = async (variantType: "pro" | "enterprise") => {
 
     const VARIANT_ID =
       variantType === "pro"
+        
         ? process.env.LEMONSQUEEZY_PRO_VARIANT_ID
         : process.env.LEMONSQUEEZY_ENTERPRISE_VARIANT_ID;
 
