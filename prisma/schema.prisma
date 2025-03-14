@@ -271,7 +271,7 @@ model Subscription {
   user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   plan            SubscriptionPlan  @default(FREE)
   status          SubscriptionStatus @default(ACTIVE)
-  lemonsqueezyId  String?          // Lemon Squeezy subscription ID
+  lemonsqueezyId  String?          @unique // Lemon Squeezy subscription ID
   orderId         String?          // Lemon Squeezy order ID
   customerId      String?          // Lemon Squeezy customer ID
   currentPeriodEnd DateTime?
